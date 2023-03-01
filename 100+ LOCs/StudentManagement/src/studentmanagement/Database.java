@@ -14,6 +14,10 @@ import java.util.ArrayList;
 public class Database {
     ArrayList<Student> studentList(){
         ArrayList<Student> list = new ArrayList();
+        list.add(new Student("h1", "Hong2", "Spring 2021", "Java"));
+        list.add(new Student("h1", "Hong0", "Summer 2021", "Java"));
+        list.add(new Student("h1", "Hong3", "Fall 2022", "Java"));
+        list.add(new Student("h1", "Hong1", "Spring 2022", "Java"));
         return list;
     }
 }

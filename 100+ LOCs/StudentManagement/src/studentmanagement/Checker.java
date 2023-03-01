@@ -45,34 +45,6 @@ public class Checker {
             }
         }
     }
-    //Check duplicate ID
-    static boolean checkDuplicateID(ArrayList<Student> list, String id){
-        if(list==null){
-            return false;
-        }
-        for(Student x:list){
-            if(id.equalsIgnoreCase(x.getId())){
-                return true;
-            }
-        }
-        return false;
-    }
-    //Check student ID
-    static String checkStudentID(ArrayList<Student> list, String msg, String regex){
-        String input;
-        //Loop until user typed valid input
-        while(true){
-            try{
-            input = checkStringInput(msg, regex);
-            //Check if the new ID is duplicate or not in an nonempty list
-            if(list!=null&&checkDuplicateID(list, input)==true)
-                throw new Exception("Error: Duplicate id!");
-            return input;
-            }catch(Exception ex){
-                System.out.println(ex.getMessage());
-            }
-        }
-    }
     //Check String input
     static String checkStringInput(String msg, String regex){
         Scanner sc = new Scanner(System.in);
@@ -119,7 +91,7 @@ public class Checker {
         }
     }
     //check Continue
-    static String checkContinue(String msg, String regex){
+    static String checkContinue(String msg, String regex, String errorMsg){
         String input;
         Scanner sc = new Scanner(System.in);
         //Loop until user typed valid number
@@ -130,14 +102,38 @@ public class Checker {
                 //Check the input is null value
                 if(input.equals(""))
                     throw new NullPointerException();
-                //Check the input is Y/N format or not
+                //Check the input is valid format or not
                 if(!input.matches(regex))
                     throw new FormatMismatch();
+                return input;
             }catch(NullPointerException NullValue){
-                System.out.println("Error: You have to type Y/N!");
+                System.out.println("Error: You have to type "+errorMsg+"!");
             }catch(FormatMismatch FormatError){
-                System.out.println("Error: You must type y/N!");
+                System.out.println("Error: You must type "+errorMsg + "!");
             }
         }
+    }
+    //checkExist
+    static boolean checkExist(ArrayList<Student> list, String id, String studentName, String semester, String courseName){
+        //access every elements from begin to end
+        for(Student x:list){
+            //Check if all 4 infomation give is all duplicate or not
+            if(x.getId().equalsIgnoreCase(id)&&
+                x.getStudentName().equalsIgnoreCase(studentName)&&
+                x.getCourseName().equalsIgnoreCase(courseName)&&
+                x.getSemester().equalsIgnoreCase(semester))
+                return true;
+        }
+        return false;
+    }
+    
+    static boolean checkExist(ArrayList<Student> list, String id){
+        //access every elements from begin to end
+        for(Student x:list){
+            //Check if all 4 infomation give is all duplicate or not
+            if(x.getId().equalsIgnoreCase(id))
+                return true;
+        }
+        return false;
     }
 }

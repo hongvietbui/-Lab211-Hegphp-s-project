@@ -36,11 +36,11 @@ public class Main {
                     break;
             //Find and sort by name
                 case 2:
-                    manager.findAndSortStudent(list);
+                    manager.findSortStudentByName(list);
                     break;
-            //Update/Delete Student
+            //Update/Delete Student by ID
                 case 3:
-                    manager.updateDeleteStudent(list);
+                    manager.updateDeleteStudentById(list);
                     break;
             //Report
                 case 4:
