@@ -77,18 +77,21 @@ public class StudentManager {
         Display display = new Display();
         display.displayStudentList(foundedList);
     }
-
+    
     void updateDeleteStudentById(ArrayList<Student> list) {
         String newStudentName;
         String newSemester;
         String newCourseName;
         
         String checkContinue;
+        
+        Student student = new Student();
         //User input Student id
         String input = Checker.checkStringInput("Type Student Id: ", "^[a-zA-Z0-9\\s]{1,}[a-zA-Z0-9]$");
-        //Check if the id is in database or not
-        if(!Checker.checkExist(list, input)){
-            System.out.println("Not found!");
+        student = findStudentByID(list, input);
+        //Check if the id is not found
+        if(student == null){
+            System.out.println("Student id not found!");
             return;
         }
         //Check if user want to continue or not
@@ -97,24 +100,92 @@ public class StudentManager {
         if(checkContinue.equals("D")){
         //Find student by ID
             //Access Student in ArrayList list from 1st to last
-            for(Student x:list){
-                if(x.getId().equals(input))
-                    list.remove(x);
-            }
+            list.remove(student);
             System.out.println("Delete Successfully!");
         }
         //Check if user want to update
         else{
             //Enter student name that must be alphabetic and can have white space in the middle
             newStudentName = Checker.checkStringInput("Enter new student name: ","^[a-zA-Z\\s]{1,}[a-zA-Z]$");
+            list.get(list.indexOf(student)).setStudentName(newStudentName);
             //Enter semester that must be alphanumeric and can have white space in the middle
             newSemester = Checker.checkStringInput("Enter new semester: ","^[a-zA-Z0-9\\s]*[a-zA-Z0-9]$");
+            list.get(list.indexOf(student)).setSemester(newSemester);
             //Enter course name that must be alphanumeric and can have white space in the middle
             newCourseName = Checker.checkNewCourseName("Enter new course name: ","^[.a-zA-Z0-9\\s]{1,}[.a-zA-Z0-9]$");
+            list.get(list.indexOf(student)).setCourseName(newCourseName);
             //Check if user making change or not
             if(Checker.checkExist(list, input, newStudentName, newSemester, newCourseName))
-                System.out.println("Nothing changed!");
-            
+                System.out.println("Update success");
         }
+    }
+
+    private Student findStudentByID(ArrayList<Student> list, String input) {
+        ArrayList<Student> newList = new ArrayList<Student>();
+        System.out.printf("%-15s | %-15s | %-15s |%-7s\n", "Number", "Student name","Semester","Course name");
+        //Access every element from 1st to last
+        for(Student x:list){
+            //Check if student ID contains input or not
+            if(x.getId().contains(input)){
+                newList.add(x);
+                System.out.printf("%-15d | %-15s | %-15s |%-7s\n", newList.indexOf(x)+1, newList.get(newList.size()-1).getStudentName(),
+                        newList.get(newList.size()-1).getSemester(),newList.get(newList.size()-1).getCourseName());
+            }
+        }
+        //If the list is empty
+        if(newList.isEmpty())
+            return null;
+        //User choice the int number in range of 1st to the last value
+        int choice = Checker.inputPosIntNumberWithRange("Enter number:",1, newList.size());
+        return newList.get(choice-1);
+    }
+    
+    public void report(ArrayList<Student> list){
+        //Check if the list is empty or not
+        if(list.isEmpty()){
+            System.out.println("List empty!");
+            return;
+        }
+        ArrayList<Report> newList = new ArrayList<>();
+        ArrayList<Student> sortedList = list;
+        Collections.sort(sortedList, new Comparator<Student>(){
+            @Override
+            public int compare(Student s1, Student s2){
+                int result = s1.getId().compareTo(s2.getId());
+                //Check if the result is 0 or not
+                if(result!=0)
+                    return result;
+                else
+                    return s1.getCourseName().compareTo(s2.getCourseName());
+            }
+        });
+        int total = 1;
+        //Access every elements from 1st to the second last
+        for(int i=0;i<sortedList.size()-1;i++){
+            //Check if the next elements has the same id or not
+            if(sortedList.get(i).getId().equalsIgnoreCase(sortedList.get(i+1).getId())){
+                //Check if the next elements has the same Course or not
+                if(sortedList.get(i).getCourseName().equalsIgnoreCase(sortedList.get(i+1).getCourseName()))
+                    total++;
+                else{
+                    newList.add(new Report(sortedList.get(i).getStudentName(),sortedList.get(i).getCourseName(),total));
+                    total = 1;
+                }
+            }
+            else{
+                newList.add(new Report(sortedList.get(i).getStudentName(),sortedList.get(i).getCourseName(),total));
+                total = 1;
+            }
+        }
+        //Add the last person
+        if(total!=1)
+            newList.add(new Report(sortedList.get(sortedList.size()-1).getStudentName()
+                    ,sortedList.get(sortedList.size()-1).getCourseName(),total));
+        else
+            newList.add(new Report(sortedList.get(sortedList.size()-1).getStudentName()
+                    ,sortedList.get(sortedList.size()-1).getCourseName(),1));
+        //Display report
+        Display display = new Display();
+        display.displayReport(newList);
     }
 }

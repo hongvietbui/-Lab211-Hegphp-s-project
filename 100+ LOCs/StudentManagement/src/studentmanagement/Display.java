@@ -59,4 +59,16 @@ public class Display {
             System.out.printf("%-"+largestName+"s | %-11s | %-15s\n",x.getStudentName(),x.getSemester(),x.getCourseName());
         }
     }
+
+    void displayReport(ArrayList<Report> newList) {
+        //If the list is empty
+        if(newList.isEmpty()){
+            System.out.println("Error: Empty database!");
+            return;
+        }
+        //Access every element from 1st to last
+        for(Report x:newList){
+            System.out.printf("%s | %s | %d\n",x.studentName,x.course,x.totalOfCourse);
+        }
+    }
 }

@@ -45,6 +45,35 @@ public class Checker {
             }
         }
     }
+    
+    static int inputPosIntNumberWithRange(String msg,int min, int max){
+        Display display = new Display();
+        Scanner sc = new Scanner(System.in);
+        String input;
+        int choice;
+        //Loop until user choose exit
+        while(true){
+            try{
+                System.out.print(msg);            
+                //Check String empty
+                input=sc.nextLine();
+                if(input.equals(""))
+                    throw new NullPointerException();
+            //Check Format error
+                choice = Integer.parseInt(input);
+            //Check if the number is in the range or not
+                if(choice<min||choice>max)
+                    throw new Exception("The number you typed must be in range of "+min+" to "+max+"!");
+                return choice;
+            }catch(NullPointerException NullValue){
+                System.out.println("Error: You have to type a number!");
+            }catch(NumberFormatException FormatError){
+                System.out.println("Error: You have to type an integer!");
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
     //Check String input
     static String checkStringInput(String msg, String regex){
         Scanner sc = new Scanner(System.in);

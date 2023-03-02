@@ -30,7 +30,7 @@ public class Main {
             choice = Checker.inputPosIntNumberWithRange(1,5);
         //Run function depends on user's choice
             switch(choice){
-            //Create Student function
+            //Create Student
                 case 1:
                     manager.createStudent(list);
                     break;
@@ -44,7 +44,7 @@ public class Main {
                     break;
             //Report
                 case 4:
-                    manager.reportStudent(list);
+                    manager.report(list);
                     break;
         //Exit
                 case 5:
