@@ -33,7 +33,7 @@ public class StudentManager {
                 //Enter semester that must be alphanumeric and can have white space in the middle
                 newSemester = Checker.checkStringInput("Enter semester: ","^[a-zA-Z0-9\\s]*[a-zA-Z0-9]$");
                 //Enter course name that must be alphanumeric and can have white space in the middle
-                newCourseName = Checker.checkNewCourseName("Enter course name: ","^[.a-zA-Z0-9\\s]{1,}[.a-zA-Z0-9]$");
+                newCourseName = Checker.checkNewCourseName("Enter course name: ","^[./+a-zA-Z0-9\\s]{1,}[.a-zA-Z0-9/+]$");
                 if(!Checker.checkExist(list, newId, newStudentName, newSemester, newCourseName)){
                     list.add(new Student(newId, newStudentName, newSemester, newCourseName));
                     System.out.println("Information added successfully!");

@@ -19,16 +19,15 @@ public class Main {
     public static void main(String[] args) {
         Display display = new Display();
         StudentManager manager = new StudentManager();
-        Database data = new Database();
-        ArrayList<Student> list = data.studentList();
+        ArrayList<Student> list = new ArrayList<>();
         int choice;
         //Loop until user choose exit
         while(true){
-        //Display menu
+        //Step 1: Display menu
             display.menu("WELCOME TO STUDENT MANAGEMENT","Create","Find and Sort","Update/Delete","Report","Exit");
-        //Input user's positive interger in range of 1 to 5 as choice
+        //Step 2: Input user's positive interger in range of 1 to 5 as choice
             choice = Checker.inputPosIntNumberWithRange(1,5);
-        //Run function depends on user's choice
+        //Step 3: Run function depends on user's choice
             switch(choice){
             //Create Student
                 case 1:
@@ -46,7 +45,7 @@ public class Main {
                 case 4:
                     manager.report(list);
                     break;
-        //Exit
+        //Step 4: Exit the program
                 case 5:
                     System.exit(0);
                     break;
