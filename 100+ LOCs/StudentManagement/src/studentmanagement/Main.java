@@ -20,6 +20,10 @@ public class Main {
         Display display = new Display();
         StudentManager manager = new StudentManager();
         ArrayList<Student> list = new ArrayList<>();
+        list.add(new Student("h1","Nguyen Van A","Spring","Java"));
+        list.add(new Student("h1","Nguyen Van A","Summer","Java"));
+        list.add(new Student("h2","Nguyen Van B","Spring",".Net"));
+        list.add(new Student("h3","Nguyen Van B","Fall","Java"));
         int choice;
         //Loop until user choose exit
         while(true){

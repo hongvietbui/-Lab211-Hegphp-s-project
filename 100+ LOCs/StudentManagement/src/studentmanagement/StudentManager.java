@@ -107,16 +107,20 @@ public class StudentManager {
         else{
             //Enter student name that must be alphabetic and can have white space in the middle
             newStudentName = Checker.checkStringInput("Enter new student name: ","^[a-zA-Z\\s]{1,}[a-zA-Z]$");
-            list.get(list.indexOf(student)).setStudentName(newStudentName);
             //Enter semester that must be alphanumeric and can have white space in the middle
             newSemester = Checker.checkStringInput("Enter new semester: ","^[a-zA-Z0-9\\s]*[a-zA-Z0-9]$");
-            list.get(list.indexOf(student)).setSemester(newSemester);
             //Enter course name that must be alphanumeric and can have white space in the middle
             newCourseName = Checker.checkNewCourseName("Enter new course name: ","^[.a-zA-Z0-9\\s]{1,}[.a-zA-Z0-9]$");
-            list.get(list.indexOf(student)).setCourseName(newCourseName);
             //Check if user making change or not
-            if(Checker.checkExist(list, input, newStudentName, newSemester, newCourseName))
+            if(!Checker.checkExist(list, input, newStudentName, newSemester, newCourseName)){
+                list.get(list.indexOf(student)).setStudentName(newStudentName);
+                list.get(list.indexOf(student)).setSemester(newSemester);
+                list.get(list.indexOf(student)).setCourseName(newCourseName);
                 System.out.println("Update success");
+            }
+            else{
+                System.out.println("Nothing changed!");
+            }
         }
     }
 
