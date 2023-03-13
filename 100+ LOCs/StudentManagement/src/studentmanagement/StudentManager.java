@@ -29,12 +29,12 @@ public class StudentManager {
                 //Enter student id that must be alphanumeric and can have white space in the middle
                 newId = Checker.checkStringInput("Enter student id: ","^[a-zA-Z0-9\\s]{1,}[a-zA-Z0-9]$");
                 //Enter student name that must be alphabetic and can have white space in the middle
-                newStudentName = Checker.checkStringInput("Enter new student name: ","^[a-zA-Z\\s]{1,}[a-zA-Z]$");
+                newStudentName = Checker.checkStudentNameInput(list,newId,"Enter new student name: ","^[a-zA-Z\\s]{1,}[a-zA-Z]$");
                 //Enter semester that must be alphanumeric and can have white space in the middle
                 newSemester = Checker.checkStringInput("Enter semester: ","^[a-zA-Z0-9\\s]*[a-zA-Z0-9]$");
                 //Enter course name that must be alphanumeric and can have white space in the middle
-                newCourseName = Checker.checkNewCourseName("Enter course name: ","^[./+a-zA-Z0-9\\s]{1,}[.a-zA-Z0-9/+]$");
-                if(!Checker.checkExist(list, newId, newStudentName, newSemester, newCourseName)){
+                newCourseName = Checker.checkNewCourseNameInput("Enter course name: ","^[./+a-zA-Z0-9\\s]{1,}[.a-zA-Z0-9/+]$");
+                if(!Checker.checkExist(list, newId, newSemester, newCourseName)){
                     list.add(new Student(newId, newStudentName, newSemester, newCourseName));
                     System.out.println("Information added successfully!");
                 }
@@ -110,9 +110,9 @@ public class StudentManager {
             //Enter semester that must be alphanumeric and can have white space in the middle
             newSemester = Checker.checkStringInput("Enter new semester: ","^[a-zA-Z0-9\\s]*[a-zA-Z0-9]$");
             //Enter course name that must be alphanumeric and can have white space in the middle
-            newCourseName = Checker.checkNewCourseName("Enter new course name: ","^[.a-zA-Z0-9\\s]{1,}[.a-zA-Z0-9]$");
+            newCourseName = Checker.checkNewCourseNameInput("Enter new course name: ","^[.a-zA-Z0-9\\s]{1,}[.a-zA-Z0-9]$");
             //Check if user making change or not
-            if(!Checker.checkExist(list, input, newStudentName, newSemester, newCourseName)){
+            if(!Checker.checkExist(list, input, newSemester, newCourseName)){
                 list.get(list.indexOf(student)).setStudentName(newStudentName);
                 list.get(list.indexOf(student)).setSemester(newSemester);
                 list.get(list.indexOf(student)).setCourseName(newCourseName);

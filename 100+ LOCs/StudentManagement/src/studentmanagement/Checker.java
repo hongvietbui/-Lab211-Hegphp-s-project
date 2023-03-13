@@ -96,7 +96,7 @@ public class Checker {
         }
     }
     //check course name
-    static String checkNewCourseName(String msg, String regex){
+    static String checkNewCourseNameInput(String msg, String regex){
         boolean flag = false;
         String input;
         String[] courses = {".Net","Java","C/C++"};
@@ -143,12 +143,11 @@ public class Checker {
         }
     }
     //checkExist
-    static boolean checkExist(ArrayList<Student> list, String id, String studentName, String semester, String courseName){
+    static boolean checkExist(ArrayList<Student> list, String id, String semester, String courseName){
         //access every elements from begin to end
         for(Student x:list){
             //Check if all 4 infomation give is all duplicate or not
             if(x.getId().equalsIgnoreCase(id)&&
-                x.getStudentName().equalsIgnoreCase(studentName)&&
                 x.getCourseName().equalsIgnoreCase(courseName)&&
                 x.getSemester().equalsIgnoreCase(semester))
                 return true;
@@ -156,7 +155,7 @@ public class Checker {
         return false;
     }
     
-    static boolean checkExist(ArrayList<Student> list, String id){
+    static boolean checkIdExist(ArrayList<Student> list, String id){
         //access every elements from begin to end
         for(Student x:list){
             //Check if all 4 infomation give is all duplicate or not
@@ -164,5 +163,37 @@ public class Checker {
                 return true;
         }
         return false;
+    }
+
+    static boolean checkStudentNameDiff(ArrayList<Student> list,String id, String studentName){
+        //Check if database is empty or not
+        if(list.isEmpty())
+            return false;
+        //Access every elements of the array
+        for(Student x:list){
+            //Check if the studentName of the same id are equal or not
+            if(x.getId().equalsIgnoreCase(id)&&
+                !x.getStudentName().equalsIgnoreCase(studentName)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    static String checkStudentNameInput(ArrayList<Student> list,String id, String msg, String regex) {
+        boolean test;
+        String input;
+        //Loop until user entered valid input
+        while(true){
+            try{
+                input = checkStringInput(msg, regex);
+                //Check if the studentName value is different from their prev elements or not
+                if(checkStudentNameDiff(list, id, input))
+                    throw new Exception("Error: one Id mustn't have 2 different name!");
+                return input;
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }
+        }
     }
 }
