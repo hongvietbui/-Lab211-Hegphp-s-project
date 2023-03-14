@@ -5,6 +5,8 @@
  */
 package fibonacci;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Lenovo
@@ -16,33 +18,40 @@ public class Fibonacci {
      */
     public static void main(String[] args) {
         boolean test = false;
-        test = true;
+//        test = true;
         //Generate array has 45 numbers using Fibonacci
-        int arr[] = fibonacciGenerate(45);
-        //Display all 45 number to screen
+        int[] arr = fibonacciArray(45);
+        //Display all number of array to screen
         displayArray(arr,test);
     }
-    //Generate fibonacci Array
-    private static int[] fibonacciGenerate(int number) {
-        int[] arr = new int[number];
-        //Access every element of the array
-        for(int i=0;i<45;i++){
-            arr[i] = fibonacciRecursion(i);
-        }
-        return arr;
-    }
-    //Fibonacci algorithm using Recursion
-    private static int fibonacciRecursion(int num) {
-        //Check if fibonacci is the 1st element or not
-        if(num==0)
-            return 0;
-        //Check if fibonacci is the 2nd element or not
-        if(num==1)
-            return 1;
-        return fibonacciRecursion(num-1)+fibonacciRecursion(num-2);
-    }
+//Generate fibonacci Array
+private static int[] fibonacciArray(int length) {
+	//Create an array of given length
+	int[] arr = new int[length];
+	//Call the helper function with initial values
+	fibonacciArrayHelper(arr, length, 0, 1);
+	//Return the array
+	return arr;
+}
+
+//Helper function that uses recursion
+private static void fibonacciArrayHelper(int[] arr, int length, int i, int j) {
+	//Base case: if length is 0 or negative, return
+	if (length <= 0) {
+		return;
+	}
+	//Check if i and j are valid indices
+	if (i < arr.length && j < arr.length) {
+		//Store the first Fibonacci number at index i
+		arr[i] = i;
+		//Store the second Fibonacci number at index j
+		arr[j] = j;
+		//Recursively call the helper function with updated values
+		fibonacciArrayHelper(arr, length-2, j+1, j+2);
+	}
+} 
     //Display array
-    private static void displayArray(int[] arr,boolean test) {
+    private static void displayArray(int[] arr, boolean test) {
         System.out.println("The 45 sequence fibonacci:");
         //Access all elements of the array
         for(int i=0;i<arr.length;i++){
