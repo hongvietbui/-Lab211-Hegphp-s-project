@@ -6,11 +6,9 @@
 package letterCount;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.Scanner;
 import java.util.StringTokenizer;
-import java.util.TreeMap;
 
 /**
  *
@@ -81,40 +79,35 @@ public class Main {
     }
 
     private static void displayNumberOfCharacter(String content) {
-    Map<Character,Integer> characterMap = new LinkedHashMap<>();
-    char[] targetChars = {'w', 'd', 'e', 'r', 'o', 'l', 'h'};
-    char[] characters = content.toCharArray();
-    //Access every character in the string
-    for(int i=0;i<characters.length;i++){
-        char c = characters[i];
-        //Check if the character is alphabetic or not
-        if(!Character.isLetter(c))
-            continue;
-        //Check if the character is contained in the target characters array
-        boolean isInTargetChars = false;
-        for(char targetChar : targetChars){
-            if(c == targetChar){
-                isInTargetChars = true;
-                break;
+        Hashtable<Character, Integer> wordMap = new Hashtable();
+        char[] characters = content.toCharArray();
+        String temp;
+        //Access every word in String
+        for(int i=0;i<characters.length;i++){
+            //check if the character is alphabetic or not
+            if(!Character.isLetter(characters[i]))
+                continue;
+            //Check if the word is contained in the map or not
+            if(wordMap.containsKey(characters[i])){
+                wordMap.put(characters[i], wordMap.get(characters[i])+1);
             }
+            else
+                wordMap.put(characters[i], 1);
         }
-        if(isInTargetChars){
-            //Check if the character is contained in the map or not
-            if(characterMap.containsKey(c)){
-                characterMap.put(c, characterMap.get(c)+1);
-            } else {
-                characterMap.put(c, 1);
-            }
+        Object[] characterList = wordMap.keySet().toArray();
+        Object[] numberList = wordMap.values().toArray();
+        System.out.print("{");
+        //Access every element of characterList from begin to end
+        for(int i=0;i<characterList.length;i++){
+            //Check if the element the the first or not
+            if(i==0)
+                System.out.print((char)characterList[i]+"="+(int)numberList[i]);
+            //Check if the element is the last or not
+            else if(i==characterList.length-1)
+                System.out.print(", "+(char)characterList[i]+"="+(int)numberList[i]);
+            else
+                System.out.print(", "+(char)characterList[i]+"="+(int)numberList[i]);
         }
+        System.out.println("}");
     }
-    System.out.print("{");
-    //Display all characters and number of them in the specified order
-    for(char c : targetChars){
-        if(characterMap.containsKey(c)){
-            int count = characterMap.get(c);
-            System.out.print(c + "=" + count + ", ");
-        }
-    }
-    System.out.println("}");
-}
 }
