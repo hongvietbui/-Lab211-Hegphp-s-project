@@ -27,14 +27,14 @@ public class StudentManager {
             for(int i=0;i<10;i++){
                 System.out.println("Enter student "+(i+1)+":");
                 //Enter student id that must be alphanumeric and can have white space in the middle
-                newId = Checker.checkStringInput("Enter student id: ","^[a-zA-Z0-9\\s]{1,}[a-zA-Z0-9]$");
+                newId = GetInput.getStringInput("Enter student id: ","^[a-zA-Z0-9\\s]{1,}[a-zA-Z0-9]$");
                 //Enter student name that must be alphabetic and can have white space in the middle
-                newStudentName = Checker.checkStudentNameInput(list,newId,"Enter new student name: ","^[a-zA-Z\\s]{1,}[a-zA-Z]$");
+                newStudentName = GetInput.getStudentNameInput(list,newId,"Enter new student name: ","^[a-zA-Z\\s]{1,}[a-zA-Z]$");
                 //Enter semester that must be alphanumeric and can have white space in the middle
-                newSemester = Checker.checkStringInput("Enter semester: ","^[a-zA-Z0-9\\s]*[a-zA-Z0-9]$");
+                newSemester = GetInput.getStringInput("Enter semester: ","^[a-zA-Z0-9\\s]*[a-zA-Z0-9]$");
                 //Enter course name that must be alphanumeric and can have white space in the middle
-                newCourseName = Checker.checkNewCourseNameInput("Enter course name: ","^[./+a-zA-Z0-9\\s]{1,}[.a-zA-Z0-9/+]$");
-                if(!Checker.checkExist(list, newId, newSemester, newCourseName)){
+                newCourseName = GetInput.getCourseNameInput("Enter course name: ","^[./+a-zA-Z0-9\\s]{1,}[.a-zA-Z0-9/+]$");
+                if(!GetInput.checkDuplicateInfo(list, newId, newSemester, newCourseName)){
                     list.add(new Student(newId, newStudentName, newSemester, newCourseName));
                     System.out.println("Information added successfully!");
                 }
@@ -45,7 +45,7 @@ public class StudentManager {
                 }
             }
         //Check if user want to continue or not
-            choice = Checker.checkContinue("Do you want to continue (Y/N)?\n","[Y|N]","Y/N");
+            choice = GetInput.getContinueSelection("Do you want to continue (Y/N)?\n","[Y|N]","Y/N");
             //Check if the user want to exit
             if(choice.equals("N"))
                 break;
@@ -60,7 +60,7 @@ public class StudentManager {
             return;
         }
         //User enter keyword
-        String keyword = Checker.checkStringInput("Enter student name: ", "[a-zA-Z ]*");
+        String keyword = GetInput.getStringInput("Enter student name: ", "[a-zA-Z ]*");
         //Access elements of ArrayList list from begin to end
         for(Student x:list){
             if(x.getStudentName().contains(keyword))
@@ -87,7 +87,7 @@ public class StudentManager {
         
         Student student = new Student();
         //User input Student id
-        String input = Checker.checkStringInput("Type Student Id: ", "^[a-zA-Z0-9\\s]{1,}[a-zA-Z0-9]$");
+        String input = GetInput.getStringInput("Type Student Id: ", "^[a-zA-Z0-9\\s]{1,}[a-zA-Z0-9]$");
         student = findStudentByID(list, input);
         //Check if the id is not found
         if(student == null){
@@ -95,7 +95,7 @@ public class StudentManager {
             return;
         }
         //Check if user want to continue or not
-        checkContinue = Checker.checkContinue("Do you want to update (U) or delete (D) student: ", "[U|D]{1}", "U/D");
+        checkContinue = GetInput.getContinueSelection("Do you want to update (U) or delete (D) student: ", "[U|D]{1}", "U/D");
         //Check if user want to delete
         if(checkContinue.equals("D")){
         //Find student by ID
@@ -106,13 +106,13 @@ public class StudentManager {
         //Check if user want to update
         else{
             //Enter student name that must be alphabetic and can have white space in the middle
-            newStudentName = Checker.checkStringInput("Enter new student name: ","^[a-zA-Z\\s]{1,}[a-zA-Z]$");
+            newStudentName = GetInput.getStringInput("Enter new student name: ","^[a-zA-Z\\s]{1,}[a-zA-Z]$");
             //Enter semester that must be alphanumeric and can have white space in the middle
-            newSemester = Checker.checkStringInput("Enter new semester: ","^[a-zA-Z0-9\\s]*[a-zA-Z0-9]$");
+            newSemester = GetInput.getStringInput("Enter new semester: ","^[a-zA-Z0-9\\s]*[a-zA-Z0-9]$");
             //Enter course name that must be alphanumeric and can have white space in the middle
-            newCourseName = Checker.checkNewCourseNameInput("Enter new course name: ","^[.a-zA-Z0-9\\s]{1,}[.a-zA-Z0-9]$");
+            newCourseName = GetInput.getCourseNameInput("Enter new course name: ","^[.a-zA-Z0-9\\s]{1,}[.a-zA-Z0-9]$");
             //Check if user making change or not
-            if(!Checker.checkExist(list, input, newSemester, newCourseName)){
+            if(!GetInput.checkDuplicateInfo(list, input, newSemester, newCourseName)){
                 list.get(list.indexOf(student)).setStudentName(newStudentName);
                 list.get(list.indexOf(student)).setSemester(newSemester);
                 list.get(list.indexOf(student)).setCourseName(newCourseName);
@@ -140,7 +140,7 @@ public class StudentManager {
         if(newList.isEmpty())
             return null;
         //User choice the int number in range of 1st to the last value
-        int choice = Checker.inputPosIntNumberWithRange("Enter number:",1, newList.size());
+        int choice = GetInput.getInt("Enter number:",1, newList.size());
         return newList.get(choice-1);
     }
     

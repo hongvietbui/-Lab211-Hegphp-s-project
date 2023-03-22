@@ -13,185 +13,204 @@ import org.omg.IOP.CodecPackage.FormatMismatch;
  *
  * @author Lenovo
  */
-public class Checker {
+public class GetInput {
+
     //Check user choice
-    static int inputPosIntNumberWithRange(int min, int max){
+    static int getInt(int min, int max) {
         Display display = new Display();
         Scanner sc = new Scanner(System.in);
         String input;
         int choice;
         //Loop until user choose exit
-        while(true){
-            try{
-            //Check String empty
-                input=sc.nextLine();
-                if(input.equals(""))
-                    throw new NullPointerException();
-            //Check Format error
-                choice = Integer.parseInt(input);
-            //Check if the number is in the range or not
-                if(choice<min||choice>max)
-                    throw new Exception("The number you typed must be in range of "+min+" to "+max+"!");
-                return choice;
-            }catch(NullPointerException NullValue){
-                System.out.println("Error: You have to type a number!");
-                display.menu("","Create","Find and Sort","Update/Delete","Report","Exit");
-            }catch(NumberFormatException FormatError){
-                System.out.println("Error: You have to type an integer!");
-                display.menu("","Create","Find and Sort","Update/Delete","Report","Exit");
-            }catch(Exception ex){
-                System.out.println(ex.getMessage());
-                display.menu("","Create","Find and Sort","Update/Delete","Report","Exit");
-            }
-        }
-    }
-    
-    static int inputPosIntNumberWithRange(String msg,int min, int max){
-        Display display = new Display();
-        Scanner sc = new Scanner(System.in);
-        String input;
-        int choice;
-        //Loop until user choose exit
-        while(true){
-            try{
-                System.out.print(msg);            
+        while (true) {
+            try {
                 //Check String empty
-                input=sc.nextLine();
-                if(input.equals(""))
+                input = sc.nextLine();
+                if (input.equals("")) {
                     throw new NullPointerException();
-            //Check Format error
+                }
+                //Check Format error
                 choice = Integer.parseInt(input);
-            //Check if the number is in the range or not
-                if(choice<min||choice>max)
-                    throw new Exception("The number you typed must be in range of "+min+" to "+max+"!");
+                //Check if the number is in the range or not
+                if (choice < min || choice > max) {
+                    throw new Exception("The number you typed must be in range of " + min + " to " + max + "!");
+                }
                 return choice;
-            }catch(NullPointerException NullValue){
+            } catch (NullPointerException NullValue) {
                 System.out.println("Error: You have to type a number!");
-            }catch(NumberFormatException FormatError){
+                display.menu("", "Create", "Find and Sort", "Update/Delete", "Report", "Exit");
+            } catch (NumberFormatException FormatError) {
                 System.out.println("Error: You have to type an integer!");
-            }catch(Exception ex){
+                display.menu("", "Create", "Find and Sort", "Update/Delete", "Report", "Exit");
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+                display.menu("", "Create", "Find and Sort", "Update/Delete", "Report", "Exit");
+            }
+        }
+    }
+
+    static int getInt(String msg, int min, int max) {
+        Display display = new Display();
+        Scanner sc = new Scanner(System.in);
+        String input;
+        int choice;
+        //Loop until user choose exit
+        while (true) {
+            try {
+                System.out.print(msg);
+                //Check String empty
+                input = sc.nextLine();
+                if (input.equals("")) {
+                    throw new NullPointerException();
+                }
+                //Check Format error
+                choice = Integer.parseInt(input);
+                //Check if the number is in the range or not
+                if (choice < min || choice > max) {
+                    throw new Exception("The number you typed must be in range of " + min + " to " + max + "!");
+                }
+                return choice;
+            } catch (NullPointerException NullValue) {
+                System.out.println("Error: You have to type a number!");
+            } catch (NumberFormatException FormatError) {
+                System.out.println("Error: You have to type an integer!");
+            } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
         }
     }
+
     //Check String input
-    static String checkStringInput(String msg, String regex){
+    static String getStringInput(String msg, String regex) {
         Scanner sc = new Scanner(System.in);
         String input;
         //Loop until user typed valid value
-        while(true){
+        while (true) {
             System.out.print(msg);
-            try{
-                input=sc.nextLine();
-                if(input.equals(""))
+            try {
+                input = sc.nextLine();
+                if (input.equals("")) {
                     throw new NullPointerException();
-                if(!input.matches(regex))
+                }
+                if (!input.matches(regex)) {
                     throw new Exception("Error: the input is not in valid format!");
+                }
                 return input;
-            }catch(NullPointerException NullValue){
+            } catch (NullPointerException NullValue) {
                 System.out.println("Error: You must type something!");
-            }catch(Exception ex){
+            } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
         }
     }
+
     //check course name
-    static String checkNewCourseNameInput(String msg, String regex){
+    static String getCourseNameInput(String msg, String regex) {
         boolean flag = false;
         String input;
-        String[] courses = {".Net","Java","C/C++"};
+        String[] courses = {".Net", "Java", "C/C++"};
         //Loop until user typed valid input
-        while(true){
-            input = checkStringInput(msg, regex);
-            try{
+        while (true) {
+            input = getStringInput(msg, regex);
+            try {
                 //Access all value in courses list
-                for(String x:courses){
+                for (String x : courses) {
                     //Check if the value of input equal the course or not
-                    if(x.equals(input))
+                    if (x.equals(input)) {
                         flag = true;
+                    }
                 }
                 //Check if the course is in the database or not
-                if(flag==false)
+                if (flag == false) {
                     throw new Exception("Error: the course you typed is not in database!");
+                }
                 return input;
-            }catch(Exception ex){
+            } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
         }
     }
+
     //check Continue
-    static String checkContinue(String msg, String regex, String errorMsg){
+    static String getContinueSelection(String msg, String regex, String errorMsg) {
         String input;
         Scanner sc = new Scanner(System.in);
         //Loop until user typed valid number
-        while(true){
-            try{
+        while (true) {
+            try {
                 System.out.print(msg);
                 input = sc.nextLine();
                 //Check the input is null value
-                if(input.equals(""))
+                if (input.equals("")) {
                     throw new NullPointerException();
+                }
                 //Check the input is valid format or not
-                if(!input.matches(regex))
+                if (!input.matches(regex)) {
                     throw new FormatMismatch();
+                }
                 return input;
-            }catch(NullPointerException NullValue){
-                System.out.println("Error: You have to type "+errorMsg+"!");
-            }catch(FormatMismatch FormatError){
-                System.out.println("Error: You must type "+errorMsg + "!");
+            } catch (NullPointerException NullValue) {
+                System.out.println("Error: You have to type " + errorMsg + "!");
+            } catch (FormatMismatch FormatError) {
+                System.out.println("Error: You must type " + errorMsg + "!");
             }
         }
     }
+
     //checkExist
-    static boolean checkExist(ArrayList<Student> list, String id, String semester, String courseName){
+    static boolean checkDuplicateInfo(ArrayList<Student> list, String id, String semester, String courseName) {
         //access every elements from begin to end
-        for(Student x:list){
+        for (Student x : list) {
             //Check if all 4 infomation give is all duplicate or not
-            if(x.getId().equalsIgnoreCase(id)&&
-                x.getCourseName().equalsIgnoreCase(courseName)&&
-                x.getSemester().equalsIgnoreCase(semester))
+            if (x.getId().equalsIgnoreCase(id)
+                    && x.getCourseName().equalsIgnoreCase(courseName)
+                    && x.getSemester().equalsIgnoreCase(semester)) {
                 return true;
-        }
-        return false;
-    }
-    
-    static boolean checkIdExist(ArrayList<Student> list, String id){
-        //access every elements from begin to end
-        for(Student x:list){
-            //Check if all 4 infomation give is all duplicate or not
-            if(x.getId().equalsIgnoreCase(id))
-                return true;
+            }
         }
         return false;
     }
 
-    static boolean checkStudentNameDiff(ArrayList<Student> list,String id, String studentName){
-        //Check if database is empty or not
-        if(list.isEmpty())
-            return false;
-        //Access every elements of the array
-        for(Student x:list){
-            //Check if the studentName of the same id are equal or not
-            if(x.getId().equalsIgnoreCase(id)&&
-                !x.getStudentName().equalsIgnoreCase(studentName)){
+    static boolean checkIdExist(ArrayList<Student> list, String id) {
+        //access every elements from begin to end
+        for (Student x : list) {
+            //Check if all 4 infomation give is all duplicate or not
+            if (x.getId().equalsIgnoreCase(id)) {
                 return true;
             }
         }
         return false;
     }
-    
-    static String checkStudentNameInput(ArrayList<Student> list,String id, String msg, String regex) {
+
+    static boolean checkStudentNameDiff(ArrayList<Student> list, String id, String studentName) {
+        //Check if database is empty or not
+        if (list.isEmpty()) {
+            return false;
+        }
+        //Access every elements of the array
+        for (Student x : list) {
+            //Check if the studentName of the same id are equal or not
+            if (x.getId().equalsIgnoreCase(id)
+                    && !x.getStudentName().equalsIgnoreCase(studentName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static String getStudentNameInput(ArrayList<Student> list, String id, String msg, String regex) {
         boolean test;
         String input;
         //Loop until user entered valid input
-        while(true){
-            try{
-                input = checkStringInput(msg, regex);
+        while (true) {
+            try {
+                input = getStringInput(msg, regex);
                 //Check if the studentName value is different from their prev elements or not
-                if(checkStudentNameDiff(list, id, input))
+                if (checkStudentNameDiff(list, id, input)) {
                     throw new Exception("Error: one Id mustn't have 2 different name!");
+                }
                 return input;
-            }catch(Exception ex){
+            } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
         }

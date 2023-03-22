@@ -30,7 +30,7 @@ public class Main {
         //Step 1: Display menu
             display.menu("WELCOME TO STUDENT MANAGEMENT","Create","Find and Sort","Update/Delete","Report","Exit");
         //Step 2: Input user's positive interger in range of 1 to 5 as choice
-            choice = Checker.inputPosIntNumberWithRange(1,5);
+            choice = GetInput.getInt(1,5);
         //Step 3: Run function depends on user's choice
             switch(choice){
             //Create Student
