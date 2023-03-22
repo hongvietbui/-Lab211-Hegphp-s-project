@@ -34,15 +34,15 @@ public class Main {
             switch(option){
                 //Option 1: create Experience
                 case 1:
-                    manage.createExperience(candidateList);
+                    manage.createNewExperience(candidateList);
                     break;
                 //Option 2: Create Fresher
                 case 2:
-                    manage.createFresher(candidateList);
+                    manage.createNewFresher(candidateList);
                     break;
                 //Option 3: create Internship
                 case 3:
-                    manage.createInternship(candidateList);
+                    manage.createNewInternship(candidateList);
                     break;
                 //Option 4: searching
                 case 4:

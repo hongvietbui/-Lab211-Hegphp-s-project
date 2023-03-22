@@ -6,6 +6,7 @@
 package candidatemanagement;
 
 import CandidateTypes.Candidate;
+import CandidateTypes.Experience;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,7 +15,7 @@ import java.util.Scanner;
  * @author Lenovo
  */
 class GetData {
-
+    private final static String[] graduationRankList = {"Excellence","Good","Fair","Poor"};
     static int getInt(String msg,int min, int max){
         Scanner sc = new Scanner(System.in);
         String input;
@@ -86,7 +87,7 @@ class GetData {
                     throw new NullPointerException();
                 if(!input.matches(regex))
                     throw new Exception("Error: the input is not in valid format!");
-                return input;
+                return input.trim();
             }catch(NullPointerException NullValue){
                 System.out.println("Error: You must type something!");
             }catch(Exception ex){
@@ -109,7 +110,7 @@ class GetData {
                 input=sc.nextLine();
                 if(input.equals(""))
                     throw new NullPointerException();
-                return input;
+                return input.trim();
             }catch(NullPointerException NullValue){
                 System.out.println("Error: You must type something!");
             }catch(Exception ex){
@@ -117,5 +118,47 @@ class GetData {
             }
         }
     }
-    
+
+    static boolean checkDuplicateId(ArrayList<Candidate> candidateList, String id) {
+        if(candidateList.isEmpty())
+            return false;
+        else{
+            //Access every elements of candidate array
+            for(int i=0;i<candidateList.size();i++){
+                //Check if the id is contained in the candidateList or not
+                if(candidateList.get(i).getId().equals(id))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    static String getIdInput(String msg,String regex,ArrayList<Candidate> candidateList) {
+        String input;
+        //Loop until user input valid value
+        while(true){
+            input = getStringInput(msg,regex);
+            //Check if the id is duplicated or not
+            if (!GetData.checkDuplicateId(candidateList, input)) {
+                return input;
+            } else {
+                System.out.println("Error: Duplicate information!");
+            }
+        }
+    }
+
+    static String getGraduationRankInput(String msg) {
+        String input;
+        //Loop until user input valid value
+        while(true){
+            input = getStringInput(msg);
+            //Access every value of Rank list
+            for(int i=0;i<graduationRankList.length;i++){
+                //Check if the Graduation Rank is on the list or not
+                if(input.equals(graduationRankList[i]))
+                    return input;
+            }
+            System.out.println("Error: Graduation Rank not valid yet!");
+        }
+    }
 }

@@ -10,7 +10,7 @@ package CandidateTypes;
  * @author Lenovo
  */
 public class Experience extends Candidate{
-    String ExpInYear;
+    int ExpInYear;
     String ProSkill;
     public Experience() {
     }
@@ -19,17 +19,17 @@ public class Experience extends Candidate{
         super(id, firstName, lastName, birthDate, address, phone, email, candidateType);
     }
 
-    public Experience(String ExpInYear, String ProSkill, String id, String firstName, String lastName, int birthDate, String address, String phone, String email, int candidateType) {
+    public Experience(int ExpInYear, String ProSkill, String id, String firstName, String lastName, int birthDate, String address, String phone, String email, int candidateType) {
         super(id, firstName, lastName, birthDate, address, phone, email, candidateType);
         this.ExpInYear = ExpInYear;
         this.ProSkill = ProSkill;
     }
 
-    public String getExpInYear() {
+    public int getExpInYear() {
         return ExpInYear;
     }
 
-    public void setExpInYear(String ExpInYear) {
+    public void setExpInYear(int ExpInYear) {
         this.ExpInYear = ExpInYear;
     }
 
